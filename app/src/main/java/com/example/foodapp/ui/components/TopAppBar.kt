@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,6 +32,7 @@ fun TopAppBar(
     title: String,
     icon: ImageVector,
     onIconClick: () -> Unit,
+    search:MutableState<String>,
 ) {
     Column() {
         Row(
@@ -72,19 +74,9 @@ fun TopAppBar(
             }
 
         }
-        SearchBar()
+        SearchBar(search = search)
         Divider(
             color = MaterialTheme.colors.onSurface.copy(alpha = .2f)
         )
     }
-}
-
-@Preview
-@Composable
-fun TopAppBarPreview() {
-    TopAppBar(
-        title = "JetNotes",
-        icon = Icons.Filled.List,
-        onIconClick = {}
-    )
 }

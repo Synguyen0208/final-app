@@ -12,7 +12,6 @@ interface Repository {
   fun getAllFoods(): LiveData<List<FoodDbModel>>
 
   fun getFood(id: Long): LiveData<FoodDbModel>
-
   fun insertFood(food: FoodDbModel)
 
   fun deleteFood(id: Long)

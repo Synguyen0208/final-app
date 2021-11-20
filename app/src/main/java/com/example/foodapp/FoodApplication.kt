@@ -12,5 +12,10 @@ class FoodApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
+    initDependencyInjector()
+  }
+
+  private fun initDependencyInjector() {
+    dependencyInjector = DependencyInjector(this)
   }
 }

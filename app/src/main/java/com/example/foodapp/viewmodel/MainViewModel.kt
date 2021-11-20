@@ -20,7 +20,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val foods : LiveData<List<FoodDbModel>> by lazy {
         repository.getAllFoods()
     }
-
     fun onNoteCheckedChange(food:FoodDbModel){
         viewModelScope.launch(Dispatchers.Default){
             repository.insertFood(food)

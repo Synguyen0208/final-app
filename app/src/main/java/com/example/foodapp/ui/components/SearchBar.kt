@@ -9,6 +9,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,44 +27,49 @@ import com.example.foodapp.util.fromHex
 
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    search:MutableState<String>,
 ) {
-    val search= remember { mutableStateOf("") };
-    FoodSurface(
-        color = Color.fromHex("#EEEEEE"),
-        contentColor = Color.Red,
-        shape = MaterialTheme.shapes.small,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .padding(horizontal = 24.dp, vertical = 8.dp)
-    ) {
-        Box(Modifier.fillMaxSize()) {
-                SearchHint()
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+    Box() {
+        TextField(
+            value = search.value,
+            onValueChange = {
+                search.value = it
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
+            ,
+            placeholder = { SearchHint() }
+        )
+        Box(modifier = Modifier.align(Alignment.CenterEnd)) {
+            Button(
+                onClick = {},
                 modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight()
+                    .padding(start = 1.dp, end = 10.dp, bottom = 10.dp)
+                    .height(55.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.fromHex("#FF6600"),
+                )
             ) {
-                BasicTextField(
-                    value = TextFieldValue(),
-                    onValueChange = {},
-                    modifier = Modifier
-                        .weight(1f)
-                        .onFocusChanged {}
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    tint = Color.fromHex("#222222"),
+                    contentDescription = "Search"
                 )
             }
         }
+
     }
+
+
 }
+
 @Composable
 private fun SearchHint() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxSize()
             .wrapContentSize()
     ) {
         Icon(
@@ -78,9 +84,11 @@ private fun SearchHint() {
         )
     }
 }
+
 @Composable
 fun mirroringIcon(ltrIcon: ImageVector, rtlIcon: ImageVector): ImageVector =
     if (LocalLayoutDirection.current == LayoutDirection.Ltr) ltrIcon else rtlIcon
+
 @Composable
 fun mirroringBackIcon() = mirroringIcon(
     ltrIcon = Icons.Outlined.ArrowBack, rtlIcon = Icons.Outlined.ArrowForward

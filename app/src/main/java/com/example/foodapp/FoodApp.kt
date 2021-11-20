@@ -14,12 +14,14 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.dp
 import com.example.foodapp.data.database.model.FoodDbModel
 import com.example.foodapp.domain.model.FoodModel
 import com.example.foodapp.routing.Screen
 import com.example.foodapp.theme.FoodTheme
 import com.example.foodapp.ui.components.*
+import com.example.foodapp.viewmodel.MainViewModel
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
@@ -29,9 +31,14 @@ import kotlin.random.Random
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
-fun FoodApp(foods: List<FoodDbModel>) {
+fun FoodApp(viewModel: MainViewModel) {
+    val foods: List<FoodDbModel> by viewModel
+        .foods
+        .observeAsState(listOf())
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val search = remember { mutableStateOf("") };
+
     ProvideWindowInsets {
         FoodTheme {
             Scaffold(
@@ -44,7 +51,8 @@ fun FoodApp(foods: List<FoodDbModel>) {
                             coroutineScope.launch {
                                 scaffoldState.drawerState.open()
                             }
-                        }
+                        },
+                        search = search,
                     )
                 },
                 bottomBar = {}
