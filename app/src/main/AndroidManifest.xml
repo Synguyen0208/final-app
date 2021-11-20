@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.example.foodapp">
+
+  <application
+      android:usesCleartextTraffic="true"
+    android:name=".FoodApplication"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="FoodApp"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.FoodApp">
+
+    <!-- Splash Activity -->
+    <activity
+      android:name="com.example.foodapp.SplashActivity"
+      android:screenOrientation="portrait"
+      tools:ignore="LockedOrientationActivity"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <activity android:name="com.example.foodapp.MainActivity" />
+
+  </application>
+
+</manifest>
